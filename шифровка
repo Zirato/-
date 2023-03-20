@@ -1,23 +1,39 @@
-alfavit_EU =  'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ'
-alfavit_RU = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ'
+alfavit_UK =  'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'
+alfavit_RU = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ1234567890'
+a = '!@#$%^&*()+_-=}][{";:/|\№'
 smeshenie = int(input('Шаг шифровки: '))
 message = input("Сообщение для шифровки: ").upper()
 itog = ''
-lang = input('Выберите язык RU/EU: ')   #Добавляем возможность выбора языка
+lang = input('Выберите язык RU/UK: ').upper()
 if lang == 'RU':
     for i in message:
-        mesto = alfavit_RU.find(i)   # Алгоритм для шифрования сообщения на русском
+        mesto = alfavit_RU.find(i)
         new_mesto = mesto + smeshenie
+        while new_mesto > len(alfavit_RU) - 1:
+            new_mesto -= len(alfavit_RU) - 1
         if i in alfavit_RU:
             itog += alfavit_RU[new_mesto]
         else:
             itog += i
 else:
     for i in message:
-        mesto = alfavit_EU.find(i)		# Алгоритм для шифрования сообщения на английском
+        mesto = alfavit_UK.find(i)
         new_mesto = mesto + smeshenie
-        if i in alfavit_EU:
-            itog += alfavit_EU[new_mesto]
+        while new_mesto > len(alfavit_UK) - 1:
+            new_mesto -= len(alfavit_UK) - 1
+        if i in alfavit_UK:
+            itog += alfavit_UK[new_mesto]
         else:
             itog += i
+
+f = open('text.txt', 'w', encoding="utf-8")
+f.write (itog)
+f.close()
+
+s = itog
+k = len(s)
+result = s[-k//2:-1] + s[-1] + s[:k//2]
+
+print(result)
+
 print (itog)
